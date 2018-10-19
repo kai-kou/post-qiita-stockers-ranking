@@ -12,8 +12,8 @@ if __name__ == '__main__':
   _USAGE = '''
   Qiita APIからストック数ランキングを生成してQiitaへ投稿する
   Usage:
-    get_qiita_items.py <qiita_api_token> <item_id>
-    get_qiita_items.py --help
+    run_post_stokers_ranking.py <qiita_api_token> <item_id>
+    run_post_stokers_ranking.py --help
   '''
 
   options = docopt(_USAGE)
