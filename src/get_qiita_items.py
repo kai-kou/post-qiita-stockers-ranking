@@ -21,11 +21,21 @@ def get_items(qiita_api_token, query):
   }
 
   itemsUrl = f'{BASE_API_URL}items'
-  itemsRes = requests.get(itemsUrl, headers=headers, params=params)
-  itemsRes.raise_for_status()
-
-  items = json.loads(itemsRes.text)
-  return items
+  page = 0
+  allItems = []
+  while True:
+    page += 1
+    params['page'] = page
+    itemsRes = requests.get(itemsUrl, headers=headers, params=params)
+    itemsRes.raise_for_status()
+    items = json.loads(itemsRes.text)
+    if len(items) == 0:
+      break
+    if len(allItems) == 0:
+      allItems = items
+    else:
+      allItems.extend(items)
+  return allItems
 
 
 def get_item_detail(headers, item):
@@ -51,11 +61,15 @@ def format_items(allItems):
   """
   formatedItems = []
   for item in allItems:
+    stockers_count = 0
+    if item and 'stockers_count' in item:
+      stockers_count = item['stockers_count']
+
     formatedItems.append({
       'title': item['title'],
       'url': item['url'],
       'user_id': item['user']['id'],
-      'stockers_count': item['stockers_count'],
+      'stockers_count': stockers_count,
       'likes_count': item['likes_count'],
       'comments_count': item['comments_count'],
       'tags': item['tags'],
