@@ -54,7 +54,7 @@ def create_stokers_ranking_body(check_date, stockers_clount, rankingItems):
     itemBodys.append(f"""
 ## {rank}位 [{item['title']}]({item['url']})
 
-**{item['stockers_count']}**ストック　**{item['likes_count']}**いいね / @{item['user_id']} さん {createAt}投稿
+**{item['stockers_count']}**ストック　**{item['likes_count']}**いいね / [{item['user_id']}](https://qiita.com/{item['user_id']}) さん {createAt}投稿
 {tags_str}
 
 """)
@@ -110,7 +110,7 @@ def create_comments_ranking_body(check_date, comments_count, rankingItems):
     itemBodys.append(f"""
 ## {rank}位 [{item['title']}]({item['url']})
 
-**{item['comments_count']}**コメント　**{item['likes_count']}**いいね / @{item['user_id']} さん {createAt}投稿
+**{item['comments_count']}**コメント　**{item['likes_count']}**いいね / [{item['user_id']}](https://qiita.com/{item['user_id']}) さん {createAt}投稿
 {tags_str}
 
 """)
